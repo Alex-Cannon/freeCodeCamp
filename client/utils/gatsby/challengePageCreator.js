@@ -15,6 +15,10 @@ const project = path.resolve(
   __dirname,
   '../../src/templates/Challenges/project/Show.js'
 );
+const git = path.resolve(
+  __dirname,
+  '../../src/templates/Challenges/git/Show.js'
+);
 const intro = path.resolve(
   __dirname,
   '../../src/templates/Introduction/Intro.js'
@@ -28,7 +32,8 @@ const views = {
   backend,
   classic,
   modern: classic,
-  project
+  project,
+  git
   // quiz: Quiz
 };
 
