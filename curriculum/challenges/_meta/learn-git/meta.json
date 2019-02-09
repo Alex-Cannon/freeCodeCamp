@@ -1,0 +1,12 @@
+{
+  "name": "Learn Git",
+  "dashedName": "learn-git",
+  "order": 4,
+  "time": "150 hours",
+  "superBlock": "apis-and-microservices",
+  "superOrder": 5,
+  "challengeOrder": [
+    "5c5f18d686d54b762c17894e",
+    "Learn Git"
+  ]
+}
