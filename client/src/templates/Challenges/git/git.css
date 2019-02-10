@@ -1,0 +1,17 @@
+.git-desktop-layout {
+  height: calc(100vh - var(--header-height));
+}
+
+.git-editor {
+  background: gray;
+  display: inline-block;
+  width: 20%;
+  min-width: 400px;
+  height: 100%;
+}
+
+.git-display {
+  display: inline-block;
+  max-width: 80%;
+  height: 100%;
+}

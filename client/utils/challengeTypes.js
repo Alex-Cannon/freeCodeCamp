@@ -9,6 +9,7 @@ const modern = 6;
 const step = 7;
 const quiz = 8;
 const invalid = 9;
+const git = 10;
 
 // individual exports
 exports.backend = backend;
@@ -25,7 +26,8 @@ exports.challengeTypes = {
   modern,
   step,
   quiz,
-  invalid
+  invalid,
+  git
 };
 
 // turn challengeType to file ext
@@ -44,7 +46,8 @@ exports.viewTypes = {
   [modern]: 'modern',
   [step]: 'step',
   [quiz]: 'quiz',
-  [backend]: 'backend'
+  [backend]: 'backend',
+  [git]: 'git'
 };
 
 // determine the type of submit function to use for the challenge on completion
@@ -63,7 +66,8 @@ exports.submitTypes = {
   [step]: 'step',
   [quiz]: 'quiz',
   [backend]: 'backend',
-  [modern]: 'tests'
+  [modern]: 'tests',
+  [git]: 'tests'
 };
 
 // determine which help forum questions should be posted to

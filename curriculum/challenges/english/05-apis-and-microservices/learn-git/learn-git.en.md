@@ -1,7 +1,7 @@
 ---
 id: 5c5f18d686d54b762c17894e
 title: Learn Git
-challengeType: 0
+challengeType: 10
 ---
 
 ## Description
