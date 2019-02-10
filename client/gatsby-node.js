@@ -17,6 +17,8 @@ const createByIdentityMap = {
   superBlockIntroMarkdown: createSuperBlockIntroPages
 };
 
+let hit = false;
+
 exports.onCreateNode = function onCreateNode({ node, actions, getNode }) {
   const { createNodeField } = actions;
   if (node.internal.type === 'ChallengeNode') {
@@ -24,6 +26,12 @@ exports.onCreateNode = function onCreateNode({ node, actions, getNode }) {
     const slug = `/learn/${dasherize(superBlock)}/${dasherize(
       block
     )}/${dasherize(title)}`;
+    if (dasherize(node.superBlock) === 'apis-and-microservices') {
+      console.log('\x1b[31m', 'SLUG: ' + slug);
+      hit = true;
+    } else if (hit) {
+      return;
+    }
     createNodeField({ node, name: 'slug', value: slug });
     createNodeField({ node, name: 'blockName', value: blockNameify(block) });
     createNodeField({ node, name: 'tests', value: tests });

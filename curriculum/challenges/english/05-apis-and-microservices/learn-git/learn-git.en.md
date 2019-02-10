@@ -1,20 +1,20 @@
 ---
 id: 5c5f18d686d54b762c17894e
 title: Learn Git
-challengeType: 4
-isRequired: true
+challengeType: 0
 ---
 
 ## Description
 <section id='description'>
-Build a full stack JavaScript app that is functionally similar to this: <a href='https://fuschia-custard.glitch.me/' target='_blank'>https://fuschia-custard.glitch.me/</a>.
-Working on this project will involve you writing your code on Glitch on our starter project. After completing this project you can copy your public glitch url (to the homepage of your app) into this screen to test it! Optionally you may choose to write your project on another platform but it must be publicly visible for our testing.
-Start this project on Glitch using <a href='https://glitch.com/#!/import/github/freeCodeCamp/boilerplate-project-exercisetracker/' target='_blank'>this link</a> or clone <a href='https://github.com/freeCodeCamp/boilerplate-project-exercisetracker/'>this repository</a> on GitHub! If you use Glitch, remember to save the link to your project somewhere safe!
+It's likely you've seen an <code>alt</code> attribute on an <code>img</code> tag in other challenges. <code>Alt</code> text describes the content of the image and provides a text-alternative. This helps in case the image fails to load or can't be seen by a user. It's also used by search engines to understand what an image contains to include it in search results. Here's an example:
+<code>&lt;img src=&quot;importantLogo.jpeg&quot; alt=&quot;Company logo&quot;&gt;</code>
+People with visual impairments rely on screen readers to convert web content to an audio interface. They won't get information if it's only presented visually. For images, screen readers can access the <code>alt</code> attribute and read its contents to deliver key information.
+Good <code>alt</code> text is short but descriptive, and meant to briefly convey the meaning of the image. You should always include an <code>alt</code> attribute on your image. Per HTML5 specification, this is now considered mandatory.
 </section>
 
 ## Instructions
 <section id='instructions'>
-
+Camper Cat happens to be both a coding ninja and an actual ninja, and is building a website to share his knowledge. The profile picture he wants to use shows his skills, and should be appreciated by all site visitors. Add an <code>alt</code> attribute in the <code>img</code> tag, that explains Camper Cat is doing karate. (The image <code>src</code> doesn't link to an actual file, so you should see the <code>alt</code> text in the display.)
 </section>
 
 ## Tests
@@ -22,16 +22,8 @@ Start this project on Glitch using <a href='https://glitch.com/#!/import/github/
 
 ```yml
 tests:
-  - text: I can create a user by posting form data username to /api/exercise/new-user and returned will be an object with username and <code>_id</code>.
-    testString: ''
-  - text: I can get an array of all users by getting api/exercise/users with the same info as when creating a user.
-    testString: ''
-  - text: 'I can add an exercise to any user by posting form data userId(_id), description, duration, and optionally date to /api/exercise/add. If no date supplied it will use current date. App will return the user object with the exercise fields added.'
-    testString: ''
-  - text: I can retrieve a full exercise log of any user by getting /api/exercise/log with a parameter of userId(_id). App will return the user object with added array log and count (total exercise count).
-    testString: ''
-  - text: 'I can retrieve part of the log of any user by also passing along optional parameters of from & to or limit. (Date format yyyy-mm-dd, limit = int)'
-    testString: ''
+  - text: Your <code>img</code> tag should have an <code>alt</code> attribute, and it should not be empty.
+    testString: assert($('img').attr('alt'), 'Your <code>img</code> tag should have an <code>alt</code> attribute, and it should not be empty.');
 
 ```
 
@@ -39,6 +31,16 @@ tests:
 
 ## Challenge Seed
 <section id='challengeSeed'>
+
+<div id='html-seed'>
+
+```html
+<img src="doingKarateWow.jpeg">
+```
+
+</div>
+
+
 
 </section>
 
