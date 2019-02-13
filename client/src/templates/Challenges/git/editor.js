@@ -3,10 +3,7 @@ import { ReflexElement } from 'react-reflex';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  globals: {
-    consoleText: PropTypes.String,
-    consoleOutput: PropTypes.Array
-  },
+  data: PropTypes.object,
   setState: PropTypes.func
 };
 
@@ -14,8 +11,8 @@ class Editor extends Component {
 
   submitCommand(e) {
     e.preventDefault();
-    let output = this.props.globals.consoleOutput;
-    output.push(this.props.globals.consoleText);
+    let output = this.props.data.consoleOutput;
+    output.push(this.props.data.consoleText);
     this.props.setState({consoleOutput: output});
   }
 
@@ -24,9 +21,12 @@ class Editor extends Component {
   }
 
   renderOutput() {
-    let output = this.props.globals.consoleOutput;
+    let output = this.props.data.consoleOutput;
     return output.map((command) => {
-      return (<><span className='money'>$</span> {command} <br/></>);
+      return (
+        <div key={command}>
+          <span className='money'>$</span> {command} <br/>
+        </div>);
     });
   }
 
@@ -59,7 +59,7 @@ class Editor extends Component {
               onChange={this.handleConsole.bind(this)}
               placeholder='Enter Command'
               type='text'
-              value={this.props.globals.consoleText}
+              value={this.props.data.consoleText}
             />
           </form>
         </div>

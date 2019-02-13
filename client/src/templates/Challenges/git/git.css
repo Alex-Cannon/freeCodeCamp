@@ -85,7 +85,10 @@
 }
 
 .git-display {
+  display: flex;
+  justify-content: center;
   height: 100%;
+  padding-top: 30px;
 }
 
 .money {

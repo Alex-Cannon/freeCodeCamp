@@ -39,13 +39,13 @@ class ShowGit extends React.Component {
     return (
       <ReflexContainer className='git-desktop-layout' orientation='vertical'>
         <Editor
-          globals={this.state}
+          data={this.state}
           setState={this.setState.bind(this)}
           {...resizeProps}
         />
         <ReflexSplitter {...resizeProps}/>
         <Display
-          globals={this.state}
+          data={this.state}
           {...resizeProps}
         />
       </ReflexContainer>
