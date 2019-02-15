@@ -20,14 +20,54 @@ class ShowGit extends React.Component {
     this.state = {
       consoleText: '',
       consoleOutput: ['git commit'],
-      tree: JSON.parse('{"branches":{"master":{"target":"C1","id":"master"}},"commits":' +
-      '{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":{"parents"' +
-      ':["C0"],"id":"C1"}},"HEAD":{"target":"master","id":"HEAD"}}'),
-      goalTree: '{"branches":{"master":{"target":"C3","id":"master"}},' +
-      '"commits":{"C0":{"parents":[],"id":"C0","rootCommit":true},"C1":' +
-      '{"parents":["C0"],"id":"C1"},"C2":{"parents":["C1"],"id":"C2"},"' +
-      'C3":{"parents":["C2"],"id":"C3"}},"HEAD":{"target":"master","id' +
-      '":"HEAD"}}'
+      tree: {
+        'branches': {
+           'master': {
+              'target': 'C4',
+              'id': 'master'
+           },
+           'bugFix': {
+              'target': 'C2',
+              'id': 'bugFix'
+           }
+        },
+        'commits': {
+           'C0': {
+              'parents': [],
+              'id': 'C0',
+              'rootCommit': true
+           },
+           'C1': {
+              'parents': [
+                 'C0'
+              ],
+              'id': 'C1'
+           },
+           'C2': {
+              'parents': [
+                 'C1'
+              ],
+              'id': 'C2'
+           },
+           'C3': {
+              'parents': [
+                 'C1'
+              ],
+              'id': 'C3'
+           },
+           'C4': {
+              'parents': [
+                 'C3',
+                 'C2'
+              ],
+              'id': 'C4'
+           }
+        },
+        'HEAD': {
+           'target': 'master',
+           'id': 'HEAD'
+        }
+     }
     };
   }
 
@@ -45,7 +85,7 @@ class ShowGit extends React.Component {
         />
         <ReflexSplitter {...resizeProps}/>
         <Display
-          data={this.state}
+          tree={this.state.tree}
           {...resizeProps}
         />
       </ReflexContainer>
