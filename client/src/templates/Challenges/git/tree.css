@@ -6,7 +6,6 @@
 }
 
 .node-text {
-  display: inline-block;
   fill: #fff;
   transform: translateY(-13px);
   font-weight: bold;
@@ -17,7 +16,29 @@
 }
 
 .node-label {
+  fill: #006400;
+  stroke: #333;
+  stroke-width: 2px;
+  height: 30px;
+  transform: translate(25px, -58px);
+}
 
+.node-label-big {
+  fill: #006400;
+  stroke: #333;
+  stroke-width: 2px;
+  height: 55px;
+  transform: translate(26px, -80px);
+}
+
+.node-label-text-branch {
+  fill: #fff;
+  transform: translate(40px, -36px);
+}
+
+.node-label-text-head {
+  fill: #fff;
+  transform: translate(40px, -57px);
 }
 
 .link {

@@ -55,6 +55,7 @@ class Display extends Component {
           return 'translate(' + d.x + ',' + d.y + ')';
         });
 
+    // Arrow
     node.append('polygon')
     .attr('points', function(d) {
       return d.data.children && d.data.children.length > 0 ?
@@ -62,14 +63,45 @@ class Display extends Component {
     })
     .attr('class', 'node-arrow');
 
+    // Node
     node.append('circle')
       .attr('r', 20);
-
     node.append('text')
       .attr('class', 'node-text')
       .text(function(d) { return d.data.id; })
       .attr('text-anchor', 'middle');
 
+    // Labels
+    node.append('rect')
+      .attr('class', function(d) {
+        if (d.data.branch && d.data.head) {
+          return 'node-label-big';
+        }
+        return d.data.branch || d.data.head ? 'node-label' : '';
+      })
+      .attr('width', function(d) {
+        var width = 0;
+        if (d.data.branch && d.data.head) {
+          width = d.data.branch.length * 14;
+          width = width > d.data.head.length * 14 ? width :
+          d.data.head.length * 14;
+        } else if (d.data.branch) {
+          width = d.data.branch.length * 14;
+        } else if (d.data.head) {
+          width = d.data.head.length * 14;
+        }
+        return width;
+      });
+    node.append('text')
+      .attr('class', 'node-label-text-branch')
+      .text(function(d) {
+        return d.data.branch || '';
+      });
+    node.append('text')
+      .attr('class', 'node-label-text-head')
+      .text(function(d) {
+        return d.data.head || '';
+      });
 
   }
 
@@ -85,20 +117,20 @@ class Display extends Component {
     });
     let head = data.HEAD;
 
-    // Add head/branch view data to commits[]
+    // Add head/branch data to commits[]
     for (let i = 0; i < commits.length; i++) {
       for (let k = 0; k < branches.length; k++) {
         if (branches[k].target === commits[i].id) {
           commits[i].branch = branches[k].id;
 
           if (head.target === branches[k].id) {
-            commits[i].head = true;
+            commits[i].head = 'HEAD';
           }
         }
       }
     }
 
-    // Find root commit
+    // tree = rootCommit
     for (let i = 0; i < commits.length; i++) {
       if (commits[i].rootCommit) {
         tree = commits[i];
@@ -120,9 +152,11 @@ class Display extends Component {
       let parent = tree;
       if (target) {
         parent = getNested(tree, target);
-        if (!parent) {
-          return;
-        }
+      }
+
+      if (!parent) {
+        console.log(target);
+        return;
       }
 
       // Add children to this parent
@@ -142,8 +176,15 @@ class Display extends Component {
         if (!newTarget) {
           newTarget = ['children', i];
         } else {
+          newTarget = target.slice();
           newTarget.push('children');
           newTarget.push(i);
+        }
+
+        if (parent.id === 'C1') {
+          console.log('> C1 [' + i + ']');
+          console.log('Expected: children[0].children[' + i + ']');
+          console.log('Actual: ' + JSON.stringify(target));
         }
 
         addCommitChildren(newTarget);
