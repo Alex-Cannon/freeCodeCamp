@@ -32,6 +32,7 @@ class Display extends Component {
       .attr('class', 'tree');
 
     var root = d3.hierarchy(data);
+    console.log(root);
 
     var tree = d3.tree()
       .size([
@@ -39,6 +40,7 @@ class Display extends Component {
         height
       ]);
 
+    // Draw Hierarchy lines
     g.selectAll('.link')
       .data(tree(root).links())
       .enter().append('path')
@@ -103,6 +105,14 @@ class Display extends Component {
         return d.data.head || '';
       });
 
+  }
+
+  drawElbow() {
+
+  }
+
+  drawSiblingLine() {
+    
   }
 
   parseTree() {

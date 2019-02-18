@@ -1,20 +1,23 @@
 ---
 id: 5c5f18d686d54b762c17894e
-title: Learn Git
+title: Commits
 challengeType: 10
 ---
 
 ## Description
 <section id='description'>
-It's likely you've seen an <code>alt</code> attribute on an <code>img</code> tag in other challenges. <code>Alt</code> text describes the content of the image and provides a text-alternative. This helps in case the image fails to load or can't be seen by a user. It's also used by search engines to understand what an image contains to include it in search results. Here's an example:
-<code>&lt;img src=&quot;importantLogo.jpeg&quot; alt=&quot;Company logo&quot;&gt;</code>
-People with visual impairments rely on screen readers to convert web content to an audio interface. They won't get information if it's only presented visually. For images, screen readers can access the <code>alt</code> attribute and read its contents to deliver key information.
-Good <code>alt</code> text is short but descriptive, and meant to briefly convey the meaning of the image. You should always include an <code>alt</code> attribute on your image. Per HTML5 specification, this is now considered mandatory.
+A commit in a git repository records a snapshot of all the files in your directory. It's like a giant copy and paste, but even better!
+
+Git wants to keep commits as lightweight as possible though, so it doesn't just blindly copy the entire directory every time you commit. It can (when possible) compress a commit as a set of changes, or a "delta", from one version of the repository to the next.
+
+Git also maintains a history of which commits were made when. That's why most commits have ancestor commits above them -- we designate this with arrows in our visualization. Maintaining history is great for everyone working on the project!
+
+It's a lot to take in, but for now you can think of commits as snapshots of the project. Commits are very lightweight and switching between them is wicked fast!
 </section>
 
 ## Instructions
 <section id='instructions'>
-Camper Cat happens to be both a coding ninja and an actual ninja, and is building a website to share his knowledge. The profile picture he wants to use shows his skills, and should be appreciated by all site visitors. Add an <code>alt</code> attribute in the <code>img</code> tag, that explains Camper Cat is doing karate. (The image <code>src</code> doesn't link to an actual file, so you should see the <code>alt</code> text in the display.)
+Let's start by making two commits. Type "git commit" twice to complete this lesson.
 </section>
 
 ## Tests
@@ -35,7 +38,7 @@ tests:
 <div id='html-seed'>
 
 ```html
-<img src="doingKarateWow.jpeg">
+
 ```
 
 </div>

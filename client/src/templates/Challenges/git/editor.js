@@ -1,73 +1,151 @@
-import React, { Component } from 'react';
-import { ReflexElement } from 'react-reflex';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import MonacoEditor from 'react-monaco-editor';
+
+import { executeChallenge, updateFile } from '../redux';
+import { userSelector } from '../../../redux';
+import { createSelector } from 'reselect';
 
 const propTypes = {
-  data: PropTypes.object,
-  setState: PropTypes.func
+  contents: PropTypes.string,
+  dimensions: PropTypes.object,
+  executeChallenge: PropTypes.func.isRequired,
+  ext: PropTypes.string,
+  fileKey: PropTypes.string,
+  theme: PropTypes.string,
+  updateFile: PropTypes.func.isRequired
+};
+
+const mapStateToProps = createSelector(
+  userSelector,
+  ({ theme = 'default' }) => ({ theme })
+);
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      executeChallenge,
+      updateFile
+    },
+    dispatch
+  );
+
+const modeMap = {
+  css: 'css',
+  html: 'html',
+  js: 'javascript',
+  jsx: 'javascript'
+};
+
+var monacoThemesDefined = false;
+const defineMonacoThemes = monaco => {
+  if (monacoThemesDefined) {
+    return;
+  }
+  monacoThemesDefined = true;
+  const yellowCollor = 'FFFF00';
+  const lightBlueColor = '9CDCFE';
+  const darkBlueColor = '00107E';
+  monaco.editor.defineTheme('vs-dark-custom', {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [
+      { token: 'delimiter.js', foreground: lightBlueColor },
+      { token: 'delimiter.parenthesis.js', foreground: yellowCollor },
+      { token: 'delimiter.array.js', foreground: yellowCollor },
+      { token: 'delimiter.bracket.js', foreground: yellowCollor }
+    ]
+  });
+  monaco.editor.defineTheme('vs-custom', {
+    base: 'vs',
+    inherit: true,
+    rules: [{ token: 'identifier.js', foreground: darkBlueColor }]
+  });
 };
 
 class Editor extends Component {
+  constructor(...props) {
+    super(...props);
 
-  submitCommand(e) {
-    e.preventDefault();
-    let output = this.props.data.consoleOutput;
-    output.push(this.props.data.consoleText);
-    this.props.setState({consoleOutput: output});
+    this.options = {
+      minimap: {
+        enabled: false
+      },
+      selectOnLineNumbers: true,
+      wordWrap: 'on',
+      scrollbar: {
+        horizontal: 'hidden',
+        vertical: 'visible',
+        verticalHasArrows: true
+      }
+    };
+
+    this._editor = null;
   }
 
-  handleConsole(e) {
-    this.props.setState({consoleText: e.target.value});
-  }
+  editorWillMount = monaco => {
+    defineMonacoThemes(monaco);
+  };
 
-  renderOutput() {
-    let output = this.props.data.consoleOutput;
-    return output.map((command) => {
-      return (
-        <div key={command}>
-          <span className='money'>$</span> {command} <br/>
-        </div>);
+  editorDidMount = (editor, monaco) => {
+    this._editor = editor;
+    this._editor.focus();
+    this._editor.addAction({
+      id: 'execute-challenge',
+      label: 'Run tests',
+      keybindings: [
+        /* eslint-disable no-bitwise */
+        monaco.KeyMod.chord(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter)
+      ],
+      run: this.props.executeChallenge
     });
+  };
+
+  onChange = editorValue => {
+    const { updateFile, fileKey } = this.props;
+    updateFile({ key: fileKey, editorValue });
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.dimensions !== prevProps.dimensions && this._editor) {
+      this._editor.layout();
+    }
   }
 
   render() {
+    const { contents, ext, theme, fileKey } = this.props;
+    const editorTheme = theme === 'night' ? 'vs-dark-custom' : 'vs-custom';
+    
+    console.log(contents);
     return (
-      <ReflexElement className='git-terminal' flex={1}>
-        <div className='toolbar box vertical center'>
-          <div className='toolbar-btns'>
-            <div className='box close-bit'/>
-            <div className='box minimize-bit'/>
-            <div className='box plus-bit'/>
-          </div>
-          <div className='toolbar-title'>
-            <span>
-              Learn Git Branching
-            </span>
-          </div>
-        </div>
-        <div className='git-editor-body'>
-          <div className='git-editor-output'>
-            {this.renderOutput()}
-          </div>
-          <form
-            className='console-form'
-            onSubmit={this.submitCommand.bind(this)}
-            >
-            <span className='money'>$</span>
-            <input
-              className='console-input'
-              onChange={this.handleConsole.bind(this)}
-              placeholder='Enter Command'
-              type='text'
-              value={this.props.data.consoleText}
-            />
-          </form>
-        </div>
-      </ReflexElement>
+      <Fragment>
+        <base href='/' />
+        <input
+          className='git-input'
+          editorDidMount={this.editorDidMount}
+          editorWillMount={this.editorWillMount}
+          key={`${editorTheme}-${fileKey}`}
+          language={modeMap[ext]}
+          onChange={this.onChange}
+          options={this.options}
+          theme={editorTheme}
+          type='text'
+          value={contents}
+        />
+        <span className='git-money-sign'>
+          $
+        </span>
+      </Fragment>
     );
   }
 }
 
+Editor.displayName = 'Editor';
 Editor.propTypes = propTypes;
 
-export default Editor;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Editor);

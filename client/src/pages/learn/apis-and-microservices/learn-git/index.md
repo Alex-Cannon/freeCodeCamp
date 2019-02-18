@@ -1,17 +1,18 @@
 ---
-title: Introduction to git
+title: Introduction to Git
 block: Learn Git
 superBlock: APIs and Microservices
 ---
-## Introduction to the APIs and Microservices Projects
+## Introduction to Git
 
-Time to put your newly learnt skills to work! By working on projects you would have the opportunity of applying all the skills, principles and concepts you have learnt so far including npm packages, basic Node, basic Express, MongoDB, and Mongoose.
+Time to leave the wild west and use Git! In this section,
+you will learn how to manage a code base with Git, a source control tool, and why it is important. Git it?
 
 In this section you get the chance to:
- * Build a Timestamp Microservice
- * Build a Request Header Parser Microservice
- * Build a URL Shortener Microservice
- * Build a Exercise Tracker
- * Build a File Metadata Microservice
+ * Learn common Git commands
+ * Learn advanced Git commands
+ * Create a repository on Github
+ * Learn how to contribute to freeCodeCamp
 
-By the end of this, you would have 5 microservices under your belt that you can show off to friends, family, employers, etc. Have fun and remember to use the [Read-Search-Ask](https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck/19514) method if you get stuck.
+
+By the end of this, you will have the skills necessary to create and manage your repositories and contribute to Open Source. Have fun and remember to use the [Read-Search-Ask](https://forum.freecodecamp.org/t/how-to-get-help-when-you-are-stuck/19514) method if you get stuck.
